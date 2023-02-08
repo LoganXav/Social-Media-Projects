@@ -1,0 +1,78 @@
+.login{
+    height: 100vh;
+    background:url(https://images.hdqwalls.com/download/call-of-duty-mobile-game-2019-k1-1920x1080.jpg) center no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .card{
+        width: 50%;        //half of the screen
+        display: flex;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.3);
+        min-height: 600px;
+        overflow: hidden;
+        .left{
+            flex: 1;
+            //background:url(https://images.hdqwalls.com/download/call-of-duty-mobile-game-2019-k1-1360x768.jpg) 
+            //center;
+            background-size: cover;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            color: white;
+            h1{
+                font-size: 80px;
+                line-height: 100px;
+            }
+            p{
+
+            }
+            span{
+                font-size: 14px;
+            }
+            button{
+                width: 50%;
+                padding: 10px;
+                border: none;
+                background-color: white;
+                color:  rgba(26, 73, 175);
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+        .right{
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 50px;
+            h1{
+                color:  rgba(26, 73, 175);
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                input{
+                    border: none;
+                    border-bottom: 1px solid lightgray;
+                    background: transparent;
+                    outline: none;
+                    color: white;
+                }
+                button{
+                    width: 50%;
+                    padding: 10px;
+                    border: none;
+                    background-color: rgba(26, 73, 175);
+                    color: white;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
