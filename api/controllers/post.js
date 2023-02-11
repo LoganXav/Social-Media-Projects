@@ -15,7 +15,7 @@ export const getPosts =(req, res) => {    // the purpose of this is to get our p
         AS r ON (p.userId = r.followedUserId) WHERE r.followerUserId= ? OR p.userId = ?
         ORDER BY p.createdAT DESC`        
     
-        db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+        db.query(q, [userInfo.id, userInfo.id], (err, data) => {        // we need the id of we the user and the people we follow because both our posts need to be fetched
             if (err) return res.status(500).json(err)
             console.log(err)
         return res.status(200).json(data)
