@@ -10,6 +10,7 @@ import './style.scss'
 import { useContext } from 'react'
 import { DarkModeContext } from './context/darkModeContext'
 import { AuthContext } from './context/authContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 
@@ -19,19 +20,23 @@ function App() {
 
   const {darkMode} = useContext(DarkModeContext)
 
-  const Layout = () => {
-    return(
-      <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <Navbar />
-        <div style={{display: "flex"}}>
-          <LeftBar />
-          <div style={{flex: 6}}>
-            <Outlet />
-          </div>
-          <RightBar />
+  const queryClient = new QueryClient()
 
+  const Layout = () => {                         // thanks to this react query provider we have access to the query client everywhere in our application
+  return(
+      <QueryClientProvider client={queryClient}>    
+        <div className={`theme-${darkMode ? "dark" : "light"}`}>
+          <Navbar />
+          <div style={{display: "flex"}}>
+            <LeftBar />
+            <div style={{flex: 6}}>
+              <Outlet />
+            </div>
+            <RightBar />
+
+          </div>
         </div>
-      </div>
+      </QueryClientProvider>
     )
   }
 

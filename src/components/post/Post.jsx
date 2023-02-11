@@ -7,6 +7,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import Comments from "../comments/Comments";
 import { useState } from "react";
+import moment from "moment";
 
 
 
@@ -26,16 +27,17 @@ const Post = ({post}) => {
                         <div className="details">
                             <Link to={`/profile/${post.userId}`} style={{textDecoration: "none", color: "inherit"}}>
                                 <span className="name">{post.name}</span>
-                            </Link>
-                                <span className="date">1 min ago</span>
-                        </div>
+                            </Link>                                  
+                                <span className="date">{moment(post.createdAt).fromNow()}</span>  
+                        </div>                      
 
                     </div>
                     <MoreHorizOutlinedIcon />
-                </div>
+                </div>           
+                                  {/* we've asked the image to be taken from our local upload folder because we asked our multer to store it there*/}
                 <div className="content">
                     <p>{post.desc}</p>
-                    <img src={post.img} alt="" />
+                    <img src={"./upload/"+post.img} alt="" />  
                 </div>
                 <div className="info">
                     <div className="item">
@@ -51,7 +53,7 @@ const Post = ({post}) => {
                         Share
                     </div>    
                 </div>
-                {commentOpen && <Comments />}        
+                {commentOpen && <Comments postId={post.id}/>}        
             </div>
         </div>
      );

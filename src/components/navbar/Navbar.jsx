@@ -11,8 +11,22 @@ import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsAc
 import { DarkModeContext } from '../../context/darkModeContext';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Navbar = () => {
+
+    const navigate = useNavigate()
+
+    const handleClick = async (e) => {
+        e.preventDefault()
+        try{
+            await axios.post("http://localhost:8800/api/auth/logout")
+            navigate("/login")
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     const { toggle, darkMode } = useContext(DarkModeContext)
     const { currentUser } = useContext(AuthContext)
@@ -23,7 +37,7 @@ const Navbar = () => {
                 <Link to="/" style={{textDecoration: "none"}}>
                     <span>Xavier Institute</span>
                 </Link>
-                <Link to="/" style={{textDecoration: "none", color: 'black', marginTop: "5px"}}>
+                <Link to="/" style={{textDecoration: "none", color: "inherit", marginTop: "5px"}}>
                     <HomeOutlinedIcon />
                 </Link>
                 { darkMode ? (<LightModeOutlinedIcon onClick={toggle} />) : (<DarkModeOutlinedIcon onClick={toggle}/>) }
@@ -37,7 +51,7 @@ const Navbar = () => {
                 <Person2OutlinedIcon />
                 <MailOutlineOutlinedIcon />
                 <NotificationsActiveOutlinedIcon />
-                <Link to={`/profile/${currentUser.userId}`} style={{textDecoration: "none", color: "inherit"}} className="user">
+                <Link onClick={handleClick} style={{textDecoration: "none", color: "inherit"}} className="user">
                     <img src={currentUser.profilePic} alt="" />
                     <span>{currentUser.name}</span>
                 </Link>

@@ -46,11 +46,11 @@ const Profile = () => {
             <div className="info">
               <div className="item">
                 <PlaceIcon />
-                <span>NGR</span>
+                <span>{currentUser.city}</span>
               </div>
               <div className="item">
                 <LanguageIcon />
-                <span>github.com/LoganXav</span>
+                <span>{currentUser.website}</span>
               </div>
             </div>
               <button>follow</button>

@@ -1,7 +1,37 @@
 import './register.scss'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Register = () => {
+
+    
+
+    const [inputs, setInputs] = useState({      // creating a state for our input values that will be set in the register input fields
+        username: "",
+        email: "",
+        password: "",
+        name: ""
+    })
+    console.log(inputs)
+
+    const [err, setErr] = useState(null)
+
+    const handleChange = (e) => {
+        setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))   //[e.target.name] gives us access to the unique input fields even though they have the same triggers
+    }
+
+    const handleClick = async (e) => {
+        e.preventDefault()
+        try{
+            await axios.post("http://localhost:8800/api/auth/register", inputs)
+
+        }catch(err){
+            setErr(err.response.data)
+        }
+    }
+
+
   return (
     <div className='register'>
         <div className="card">
@@ -18,13 +48,13 @@ const Register = () => {
             <div className="right">
                 <h1>Register</h1>
                 <form action="">
-                    <input type="text" placeholder='Username' />
-                    <input type="email"  placeholder='Email'/>
-                    <input type="password"  placeholder='Password'/>
-                    <input type="password"  placeholder='Name'/>
-                    <Link to="/register">
-                        <button>Register</button>
-                    </Link>
+                    <input type="text" placeholder='Username' name="username" onChange={handleChange}/>
+                    <input type="email"  placeholder='Email'name="email" onChange={handleChange}/>
+                    <input type="password"  placeholder='Password'name="password" onChange={handleChange}/>
+                    <input type="text"  placeholder='Name'name="name" onChange={handleChange}/>
+                    {err && err}
+                    <button onClick={handleClick}>Register</button>
+                    
                 </form>
             </div>
         </div>

@@ -1,34 +1,26 @@
 import './posts.scss'
 import Post from '../post/Post'
+import { useQuery } from '@tanstack/react-query'
+import { makeRequest } from '../../axios'
 
 const Posts = () => {
 
-  
+  const { isLoading, error, data } = useQuery(["posts"], () =>      //this query manages all the data for our posts fetch. It then passes the res down as a prop to all our posts.
+    makeRequest.get("/posts").then((res) => {       // this is how how mutated data gets here and is passed down as a prop to be rendered in post
+      return res.data
+    })
+   )
 
-  // TEMPORARY DATA
-  const posts = [
-    {
-      id: 1,
-      name: "Logan",
-      userId: 1,
-      profilePic: 
-      "https://images.hdqwalls.com/download/call-of-duty-modern-warfare-2019-4k-cb-1920x1080.jpg",
-      desc: "Alcatraz has been off the freaking rails this new season. Everyone's holding hands now!",
-      img: "https://images.hdqwalls.com/download/call-of-duty-mobile-season-12-nikto-dark-side-qa-1920x1080.jpg"
-    },
-    {
-      id: 2,
-      name: "Havok",
-      userId: 2,
-      profilePic: 
-      "https://images.hdqwalls.com/download/call-of-duty-mobile-4k-new-dd-1920x1080.jpg",
-      desc: "Manta Ray is just too sexy guys. Best skin in cod in my opinion.",
-      img: "https://images.hdqwalls.com/download/cod-mobile-manta-ray-naomi-mizushima-2021-zm-1920x1080.jpg"
-    }
-  ]
+   console.log(data)
+
+
   return (
     <div className='posts'>
-      {posts.map(post =>  
+      {error
+      ? "Something went wrong!"
+      : isLoading
+      ? "loading"
+      : data.map(post =>                      // for each data, in this case the data is each post we get back from the db, including the images(file)
         <Post post={post} key={post.id} /> 
       )}
     </div>
